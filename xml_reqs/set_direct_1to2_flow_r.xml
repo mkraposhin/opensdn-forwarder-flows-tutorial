@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<test>
+  <test_name> sandesh req</test_name>
+  <message>
+    <vr_flow_req>
+      <fr_op type="i32" identifier="1">0</fr_op>
+      <fr_index type="i32" identifier="3">397480</fr_index>
+      <fr_action type="i16" identifier="4">2</fr_action>
+      <fr_flags type="i16" identifier="5">4097</fr_flags>
+      <fr_rindex type="i32" identifier="6">5964</fr_rindex>
+      <fr_family type="i32" identifier="7">2</fr_family>
+
+      <fr_flow_sip_u type="u64" identifier="8">0</fr_flow_sip_u>
+      <fr_flow_sip_l type="u64" identifier="9">184615178</fr_flow_sip_l>
+      <fr_flow_dip_u type="u64" identifier="10">0</fr_flow_dip_u>
+      <fr_flow_dip_l type="u64" identifier="11">369164554</fr_flow_dip_l>
+      <fr_flow_sport type="u16" identifier="12">100</fr_flow_sport>
+      <fr_flow_dport type="u16" identifier="13">100</fr_flow_dport>
+
+      <fr_gen_id type="byte" identifier="27">8</fr_gen_id>
+
+      <fr_flow_proto type="byte" identifier="14">17</fr_flow_proto>
+      <fr_flow_vrf type="u16" identifier="15">1</fr_flow_vrf>
+      <fr_ecmp_nh_index type="u32" identifier="23">4294967295</fr_ecmp_nh_index>
+      <fr_src_nh_index type="u32" identifier="24">1</fr_src_nh_index>
+      <fr_flow_nh_id type="u32" identifier="25">1</fr_flow_nh_id>
+      <fr_qos_id type="u16" identifier="35">65535</fr_qos_id>
+      <fr_underlay_ecmp_index type="byte" identifier="39">-1</fr_underlay_ecmp_index>
+    </vr_flow_req>
+  </message>
+</test>
