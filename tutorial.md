@@ -78,9 +78,10 @@ tutorial, section D.
 Afterwards it's neccesary to enrich information about virtual interfaces **veth1c**
 and **veth2c** in vRouter Forwarder. Templates for the corresponding requests are
 contained in the files
-[set_vif1_ip.xml]()
+[set_vif1_ip.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/set_vif1_ip.xml)
 and
-[set_vif2_ip.xml](). While these requests are svery similar to the similar
+[set_vif2_ip.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/set_vif2_ip.xml).
+While these requests are svery similar to the similar
 requests from [OpenSDN Basic vRouter Forwarder](https://github.com/mkraposhin/opensdn-forwarder-basic-tutorial)
 tutorial, they have 2 important differences:
 1. there is a new field <vifr_vrf></vifr_vrf> field specifying the number
@@ -119,11 +120,15 @@ OpenSDN UI of a virtual port.
 Following the general sequence of steps from
 [OpenSDN Basic vRouter Forwarder](https://github.com/mkraposhin/opensdn-forwarder-basic-tutorial)
 tutorial, the nexthops and MPLS labels are set:
-- for **cont1** container (and **veth1c** virtual interface), [set_cont1_br_nh.xml]();
-- for **cont2** container (and **veth2c** virtual interface), [set_cont2_br_nh.xml]();
-- for both containers (multicast nexthop), [set_mcast_br_nh.xml]().
+- for **cont1** container (and **veth1c** virtual interface), [set_cont1_br_nh.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/set_cont1_br_nh.xml);
+- for **cont2** container (and **veth2c** virtual interface), [set_cont2_br_nh.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/set_cont2_br_nh.xml);
+- for both containers (multicast nexthop), [set_mcast_br_nh.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/set_mcast_br_nh.xml).
 
-Next fields are updated in requests [set_cont1_br_nh.xml]() and [set_cont2_br_nh.xml]():
+Next fields are updated in requests
+[set_cont1_br_nh.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/set_cont1_br_nh.xml)
+and
+[set_cont2_br_nh.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/set_cont2_br_nh.xml) compared to
+[OpenSDN Basic vRouter Forwarder](https://github.com/mkraposhin/opensdn-forwarder-basic-tutorial) tutorial:
 - <nhr_encap_oif_id></nhr_encap_oif_id> specifying ID of **veth1** or **veth2**
 **host OS** interfaces depending on the corresponding guest OS virtual interface;
 - <nhr_vrf></nhr_vrf> specifying ID (1) of the VRF table used in this tutorial;
@@ -134,7 +139,7 @@ them in the corresponding requests is presented in
 [OpenSDN Basic vRouter Forwarder](https://github.com/mkraposhin/opensdn-forwarder-basic-tutorial)
 tutorial.
 
-For the L2 multicast [set_mcast_br_nh.xml]() nexthop request, only the field
+For the L2 multicast [set_mcast_br_nh.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/set_mcast_br_nh.xml) nexthop request, only the field
 <nhr_vrf></nhr_vrf> with value 1 must be added.
 
 The requested nexthop and MPLS labels settings are applied by
@@ -155,10 +160,10 @@ the results can be verified using **nh** and **mpls** commands inside
 
 Finally, the L2 routes for packets forwarding are installed in vRouter
 Forwarder using
-[set_mcast_br_rt.xml](),
-[set_cont1_br_rt.xml](),
+[set_mcast_br_rt.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/set_mcast_br_rt.xml),
+[set_cont1_br_rt.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/set_cont1_br_rt.xml),
 and
-[set_cont2_br_rt.xml]()
+[set_cont2_br_rt.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/set_cont2_br_rt.xml)
 requests. The requests are similar to those discussed in 
 [OpenSDN Basic vRouter Forwarder](https://github.com/mkraposhin/opensdn-forwarder-basic-tutorial)
 except the new field <rtr_vrf_id></rtr_vrf_id> which, as in other
@@ -255,7 +260,7 @@ The new forward flow can be created using **vr_flow_req**, defined in
 the interface
 [vr.sandesh](https://github.com/OpenSDN-io/tf-vrouter/blob/master/sandesh/vr.sandesh).
 The example of a request formulated using XML language is store in
-[set_direct_1to2_flow.xml]() and contains next important fields:
+[set_direct_1to2_flow.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/set_direct_1to2_flow.xml) and contains next important fields:
 - <fr_op></fr_op> specifies whether the flow is created/updated/delete/inspected;
 - <fr_index></fr_index> specifies the index of a flow  (-1 means that it must be
 computed automatically by vRouter Forwarder);
@@ -278,7 +283,7 @@ vRouter Forwarder and vRouter Agent (Fig. C1).
 
 Next, we need a reverse flow to forward UDP packets back from 10.1.1.22:25600
 to 10.1.1.11:25600, this flow is created using the request stored in
-[set_reverse_1to2_flow.xml](). The reverse flow request is different compared
+[set_reverse_1to2_flow.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/set_reverse_1to2_flow.xml). The reverse flow request is different compared
 to the forward flow request in next fields:
 - source IP / destination IP values are swapped;
 - source port / destination port values are swapped;
@@ -306,7 +311,7 @@ the third step of their interaction:
 At the last step, vRouter Forwarder links forward flow with the reverse flow
 and sends back to vRouter Agent index of the latter. We imitate this step
 with the request
-[set_reverse_1to2_flow_r.xml]().
+[set_reverse_1to2_flow_r.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/set_reverse_1to2_flow_r.xml).
 
 This request contains one more important field: <fr_gen_id></fr_gen_id> which
 is used as a syncrhonization tool between vRouter Agent and vRouter Forwarder.
