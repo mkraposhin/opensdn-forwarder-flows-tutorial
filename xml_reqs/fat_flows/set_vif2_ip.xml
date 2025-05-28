@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<test>
+  <test_name> sandesh req</test_name>
+  <message>
+    <vr_interface_req>
+      <h_op type="i32" identifier="1">0</h_op>
+      <vifr_idx type="i32" identifier="6">11</vifr_idx>
+      <vifr_ip type="u32" identifier="39">369164554</vifr_ip>
+      <vifr_nh_id type="i32" identifier="48">2</vifr_nh_id>
+      <vifr_flags type="i32" identifier="4">193</vifr_flags>
+      <vifr_vrf type="i32" identifier="5">1</vifr_vrf>
+      <vifr_mcast_vrf type="i32" identifier="63">1</vifr_mcast_vrf>
+      <vifr_mac type="list" identifier="38">
+        <list type="byte" size="6">
+          <element>0</element>
+          <element>0</element>
+          <element>94</element>
+          <element>0</element>
+          <element>1</element>
+          <element>0</element>
+        </list>
+      </vifr_mac>
+
+     <vifr_fat_flow_protocol_port type="list" identifier="54">
+        <list type="i32" size="1">
+          <element>1139712</element>
+        </list>
+      </vifr_fat_flow_protocol_port>
+
+      <vifr_fat_flow_src_prefix_l type="list" identtifier="78">
+        <list type="u64" size="1"><element>0</element></list>
+      </vifr_fat_flow_src_prefix_l>
+
+      <vifr_fat_flow_src_prefix_h type="list" identifier="77">
+          <list type="u64" size="1"><element>0</element></list>
+      </vifr_fat_flow_src_prefix_h>
+
+      <vifr_fat_flow_src_prefix_mask type="list" identifier="79">
+        <list type="byte" size="1"><element>0</element></list>
+      </vifr_fat_flow_src_prefix_mask>
+
+      <vifr_fat_flow_src_aggregate_plen type="list" identifier="80">
+          <list type="byte" size="1"><element>0</element></list>
+      </vifr_fat_flow_src_aggregate_plen>
+
+      <vifr_fat_flow_dst_prefix_l type="list" identtifier="82">
+        <list type="u64" size="1"><element>0</element></list>
+      </vifr_fat_flow_dst_prefix_l>
+
+      <vifr_fat_flow_dst_prefix_h type="list" identifier="81">
+          <list type="u64" size="1"><element>0</element></list>
+      </vifr_fat_flow_dst_prefix_h>
+
+      <vifr_fat_flow_dst_prefix_mask type="list" identifier="83">
+        <list type="byte" size="1"><element>0</element></list>
+      </vifr_fat_flow_dst_prefix_mask>
+
+      <vifr_fat_flow_dst_aggregate_plen type="list" identifier="84">
+          <list type="byte" size="1"><element>0</element></list>
+      </vifr_fat_flow_dst_aggregate_plen>
+
+      <vifr_fat_flow_exclude_ip_list type="list" identifier="65">
+        <list type="u64" size="0"></list>
+      </vifr_fat_flow_exclude_ip_list>
+      <vifr_fat_flow_exclude_ip6_u_list type="list" identifier="66">
+        <list type="u64" size="0"></list>
+      </vifr_fat_flow_exclude_ip6_u_list>
+      <vifr_fat_flow_exclude_ip6_l_list type="list" identifier="67">
+        <list type="u64" size="0"></list>
+      </vifr_fat_flow_exclude_ip6_l_list>
+      <vifr_fat_flow_exclude_ip6_plen_list type="list" identifier="68">
+        <list type="u64" size="0"></list>
+      </vifr_fat_flow_exclude_ip6_plen_list>
+
+    </vr_interface_req>
+  </message>
+</test>
+

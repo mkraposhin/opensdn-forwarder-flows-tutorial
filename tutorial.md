@@ -340,9 +340,134 @@ one flow is linked with another.
 ![Fig. C4: The flow table state after the correct estblishment of forward and reverse flows](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/figs/Fig-C-4.png)
 *Fig. C4: The flow table state after the correct estblishment of forward and reverse flows*
 
-Now if one try sending data between containers **cont1** and **cont2**
-via **nc** program, the data must be copied between terminal windows.
+Now if one tries sending data between containers **cont1** and **cont2**
+via **nc** program, the data will transfer between terminal windows
+of the containers.
 
-C. An fat flow installation procedure
+C. A fat flow installation procedure
 -------------------------------------
 
+However, if we change the ingress port of **nc** in container **cont1**,
+we are to create a new pair of flows, since 6-tuple describing flow
+(SIP/DIP/SPORT/DPORT/PROTO/K(NH)) changes. Therefore, we would have
+to do all the previous actions again:
+- the creaton of a forward flow;
+- the creation of a reverse flow;
+- the linkaged of the created forward and reverse flows.
+
+These operations are repeated by vRouter Forwarder together with
+vRouter Agent each time, when, for example, a client application from a VM
+creates a new UDP session with a network service (e.g., DNS), leading to
+additional CPU load on the hypervisor.
+
+This problem can be solved by employing the so called fat flows: a
+concept that "unites" a range of ordinary flows into single flow record.
+Fat flows can be considered as a wildcard statement instead of single
+values in a 6-tuple: for instance, we can say that we want a specific
+action for all packets transferring between some source and destination IP,
+but for all destination ports. Fat flows wildcard (or mask) can be applied
+to the next flow key fields: source IP, destination IP, source port,
+destination port and to protocol.
+
+In this tutorial, the simplest fat flow is considered (source port), but
+the principle is applicable to all other types or their combinations.
+The next 6-tuple is used for the fat flow key for packets travelling
+from **cont1** to **cont2**:
+- SIP is 10.1.1.11;
+- DIP is 10.1.1.22;
+- SPORT is * (any egress port);
+- DPORT is 25600 (only applicable for packets destined to the port 25600);
+- PROTO is 17 (UDP);
+- VRF ID is 1 (corresponds to K(NH) = 1).
+
+The requests to apply the fat flow (actually the pair of fat flows) for the
+proposed case are:
+- [fat_flows/set_vif1_ip.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/fat_flows/set_vif1_ip.xml);
+- [fat_flows/set_vif2_ip.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/fat_flows/set_vif2_ip.xml);
+- [fat_flows/set_direct_1to2_flow.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/fat_flows/set_direct_1to2_flow.xml);
+- [fat_flows/set_reverse_1to2_flow.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/fat_flows/set_reverse_1to2_flow.xml);
+- [fat_flows/set_direct_1to2_flow_r.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/fat_flows/set_direct_1to2_flow_r.xml).
+
+As it can be seen from this list, fat flow parameters are assigned per 
+interface and per flow.
+
+Before proceeding to modification actions of vRouter Forwarder flow table
+it is recomended to clear the table using **flow** utility in **opensdn-tools**
+container. If previously created flows has indices 397480 and 5964, then
+we destroy them as follows:
+
+    flow -i 397480
+    flow -i 5964
+
+
+Fat flows for ports are assigned using field 
+<vifr_fat_flow_protocol_port></vifr_fat_flow_protocol_port>
+of request vr_interface_req. According to the interface
+[vr.sandesh](https://github.com/OpenSDN-io/tf-vrouter/blob/master/sandesh/vr.sandesh),
+this field is a list of 32-bit signed integers.
+Each integer in the list specifies
+information about destination port number and protocol
+encoded as follows:
+- lowest 16 bits contain port number;
+- bits from 17 to 24 contain protocol number;
+- bits from 25 to 32 contain other auxilliary information.
+
+For example, if we want to encode port number 25600 for UDP protocol,
+we need to put number `25600 + 17*65536` into this list.
+
+In order to apply changes, it is necessary to run **vrcli**
+inside **opensdn-tools** container:
+
+    vrcli --vr_kmode --send_sandesh_req flows_rep/xml_reqs/fat_flows/set_vif1_ip.xml
+    vrcli --vr_kmode --send_sandesh_req flows_rep/xml_reqs/fat_flows/set_vif2_ip.xml
+
+The results of the requests execution can be verified using
+**vif** utility:
+
+    vif -l
+
+Fig. D1 shows the modified state of the virtual interfaces **veth1c** and
+**veth2c**: it is seen that now both interfaces are associated with destination
+port fat flow 25600 for UDP protocol (17).
+
+![Fig. D1: The new state of virtual interfaces after applying fat flow rules to them](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/figs/Fig-D-1.png)
+*Fig. D1: The new state of virtual interfaces after applying fat flow rules to them*
+
+Now fat flows records can be created. Comparing to ordinary flows requests,
+the requests for fat flows contain value 0 in the destination port field in
+case of the forward fat flow and value 0 in the source port field in case
+of the reverse fat flow.
+
+At first forward and reverse flows are created using **vrcli** inside
+**opensdn-tools** container:
+
+    vrcli --vr_kmode --send_sandesh_req flows_rep/xml_reqs/fat_flows/set_direct_1to2_flow.xml
+    vrcli --vr_kmode --send_sandesh_req flows_rep/xml_reqs/fat_flows/set_reverse_1to2_flow.xml
+
+Then the flow table state can be expected using **flow** command
+inside **opensdn-tools** container:
+
+    flow -l
+
+The output of the command shows (Fig. D2) that now flows have 0 as source
+or destination ports (depending on a flow direction), indicating that
+these are actually fat flows. We can also take value of Generation ID (Gen)
+for the forward flow (5 on the Fig. D2) to set it in our final request,
+which links the forward and reverse flows:
+
+    vrcli --vr_kmode --send_sandesh_req flows_rep/xml_reqs/fat_flows/set_direct_1to2_flow_r.xml
+
+![Fig. D2: The intermediate state of the flow table after installing partially the fat flow pair](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/figs/Fig-D-2.png)
+*Fig. D2: The intermediate state of the flow table after installing partially the fat flow pair*
+
+If the execution of the last request was correct, then both fat flows will be linked with
+each other (having `<=>` sign in the index column).
+
+Running **nc** program in:
+- in container **cont1** as a UDP client:
+        nc -4 -u 10.1.1.22 25600
+
+- and in container **cont2** as a UDP server:
+        nc -4 -u -l 10.1.1.22 25600
+
+must yield a working UDP session without creation of additional flows.
