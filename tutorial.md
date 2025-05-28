@@ -218,7 +218,7 @@ a coupled of containers and manual requests submitted to Forwarder using
 Firstly, let's start **nc** program inside
 
 - container **cont1** as a UDP client:
-        nc -4 -l -p 25600 10.1.1.22 25600
+        nc -4 -u -p 25600 10.1.1.22 25600
 
 - container **cont2** as a UDP server:
         nc -4 -u -l 10.1.1.22 25600
@@ -308,8 +308,8 @@ the third step of their interaction:
 ![Fig. C3: The flow table state before the third step of vRouter Agent and vRouter Forwarder interaction](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/figs/Fig-C-3.png)
 *Fig. C3: The flow table state before the third step of vRouter Agent and vRouter Forwarder interaction*
 
-At the last step, vRouter Forwarder links forward flow with the reverse flow
-and sends back to vRouter Agent index of the latter. We imitate this step
+At the last step, vRouter Forwarder links the forward flow with the reverse flow
+and sends back to vRouter Agent the index of the latter. We imitate this step
 with the request
 [set_reverse_1to2_flow_r.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/set_reverse_1to2_flow_r.xml).
 
@@ -317,14 +317,16 @@ This request contains one more important field: <fr_gen_id></fr_gen_id> which
 is used as a syncrhonization tool between vRouter Agent and vRouter Forwarder.
 Each time when vRouter Forwarder receives a request to update the flow record
 it checks whether:
-1. flow key (SIP/DIP/SPORT/DPORT/PROTO/K(NH)) matches values specified in the
-request;
-2. value of generation ID (*gen_id* or *Gen*) of the record matches the value
-specified in <fr_gen_id></fr_gen_id> field of the request.
-The record is updated only when there is a full match for all numbers between
-the current flow record and the received request.
+1. it's flow key (SIP/DIP/SPORT/DPORT/PROTO/K(NH)) matches values specified
+in the request;
+2. the value of generation ID (*gen_id* or *Gen*) of the record matches the
+value specified in <fr_gen_id></fr_gen_id> field of the request.
+The flow record is updated only when there is a full match for all numbers
+between the current flow record and the received request.
 
-Therefore, before running **vrcli** with the last request, it's value of
+Therefore, before running **vrcli** with the request
+[set_reverse_1to2_flow_r.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/set_reverse_1to2_flow_r.xml),
+it's value of
 <fr_gen_id></fr_gen_id> must be updated from the output of **flow**
 utility (Gen: 8 in the Fig. C3). Afterwards, **vrcli** is executed 
 in **opesdn-tools** to link the forward flow with the reverse flow:
@@ -341,7 +343,6 @@ one flow is linked with another.
 Now if one try sending data between containers **cont1** and **cont2**
 via **nc** program, the data must be copied between terminal windows.
 
-General tutorial plan:
-   1. Basic settings
-   2. Simple flow settings (UDP, port 25600 for ingress aond egress)
-   3. Fat flow, (UDP, port 25600 for ingress, any port egress)
+C. An fat flow installation procedure
+-------------------------------------
+
