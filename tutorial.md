@@ -178,6 +178,7 @@ Routes are created using the commands:
 
     vrcli --vr_kmode --send_sandesh_req flows-rep/xml_reqs/set_cont1_br_rt.xml
     vrcli --vr_kmode --send_sandesh_req flows-rep/xml_reqs/set_cont2_br_rt.xml
+    vrcli --vr_kmode --send_sandesh_req flows-rep/xml_reqs/set_mcast_br_rt.xml
 
 The newly created routes can be checked by **rt** command inside
 **opensdn-tools** container:
