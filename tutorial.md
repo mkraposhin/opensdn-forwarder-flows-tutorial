@@ -338,7 +338,7 @@ it's value of
 utility (Gen: 8 in the Fig. C3). Afterwards, **vrcli** is executed 
 in **opesdn-tools** to link the forward flow with the reverse flow:
 
-    vrcli --vr_kmode --send_sandesh_req flows-rep/xml_reqs/set_direct_1to2_flow.xml
+    vrcli --vr_kmode --send_sandesh_req flows-rep/xml_reqs/set_direct_1to2_flow_r.xml
 
 The resutls of the final state can be view with **flow** utility in
 **opensdn-tools** container, see Fig. C4. The sign `<=>` means that
