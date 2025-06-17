@@ -283,7 +283,7 @@ To install a new flow for UDP packets going from 10.1.1.11:25600 to
 10.1.1.22:25600 in VRF number 1 via nexthop 1 the next command is
 to be executed in **opensdn-tools**:
 
-    vrcli --vr_kmode --send_sandesh_req flows-rep/set_direct_1to2_flow.xml
+    vrcli --vr_kmode --send_sandesh_req flows-rep/xml_reqs/set_direct_1to2_flow.xml
 
 This command imitates step 1 and partially step 2 of the interaction between
 vRouter Forwarder and vRouter Agent (Fig. C1).
@@ -304,7 +304,7 @@ a reverse counterpart (specified in <fr_rindex></fr_rindex>) and
 This flow is created by invoking in **opensdn-tools** (after changing
 the request fields if necessary):
 
-    vrcli --vr_kmode --send_sandesh_req flows-rep/set_reverse_1to2_flow.xml
+    vrcli --vr_kmode --send_sandesh_req flows-rep/xml_reqs/set_reverse_1to2_flow.xml
 
 If there have been no errors, we must have two flows (fig. C3), which
 correspond to the state of vRouter Agent and vRouter Forwarder before
@@ -338,7 +338,7 @@ it's value of
 utility (Gen: 8 in the Fig. C3). Afterwards, **vrcli** is executed 
 in **opesdn-tools** to link the forward flow with the reverse flow:
 
-    vrcli --vr_kmode --send_sandesh_req flows-rep/set_direct_1to2_flow.xml
+    vrcli --vr_kmode --send_sandesh_req flows-rep/xml_reqs/set_direct_1to2_flow.xml
 
 The resutls of the final state can be view with **flow** utility in
 **opensdn-tools** container, see Fig. C4. The sign `<=>` means that
