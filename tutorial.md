@@ -426,8 +426,8 @@ we need to put number `25600 + 17*65536` into this list.
 In order to apply changes, it is necessary to run **vrcli**
 inside **opensdn-tools** container:
 
-    vrcli --vr_kmode --send_sandesh_req flows_rep/xml_reqs/fat_flows/set_vif1_ip.xml
-    vrcli --vr_kmode --send_sandesh_req flows_rep/xml_reqs/fat_flows/set_vif2_ip.xml
+    vrcli --vr_kmode --send_sandesh_req flows-rep/xml_reqs/fat_flows/set_vif1_ip.xml
+    vrcli --vr_kmode --send_sandesh_req flows-rep/xml_reqs/fat_flows/set_vif2_ip.xml
 
 The results of the requests execution can be verified using
 **vif** utility:
@@ -449,8 +449,8 @@ of the reverse fat flow.
 At first forward and reverse flows are created using **vrcli** inside
 **opensdn-tools** container:
 
-    vrcli --vr_kmode --send_sandesh_req flows_rep/xml_reqs/fat_flows/set_direct_1to2_flow.xml
-    vrcli --vr_kmode --send_sandesh_req flows_rep/xml_reqs/fat_flows/set_reverse_1to2_flow.xml
+    vrcli --vr_kmode --send_sandesh_req flows-rep/xml_reqs/fat_flows/set_direct_1to2_flow.xml
+    vrcli --vr_kmode --send_sandesh_req flows-rep/xml_reqs/fat_flows/set_reverse_1to2_flow.xml
 
 Then the flow table state can be expected using **flow** command
 inside **opensdn-tools** container:
@@ -463,7 +463,7 @@ these are actually fat flows. We can also take value of Generation ID (Gen)
 for the forward flow (5 on the Fig. D2) to set it in our final request,
 which links the forward and reverse flows:
 
-    vrcli --vr_kmode --send_sandesh_req flows_rep/xml_reqs/fat_flows/set_direct_1to2_flow_r.xml
+    vrcli --vr_kmode --send_sandesh_req flows-rep/xml_reqs/fat_flows/set_direct_1to2_flow_r.xml
 
 ![Fig. D2: The intermediate state of the flow table after installing partially the fat flow pair](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/figs/Fig-D-2.png)
 *Fig. D2: The intermediate state of the flow table after installing partially the fat flow pair*
