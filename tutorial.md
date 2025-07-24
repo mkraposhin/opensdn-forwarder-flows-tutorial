@@ -97,7 +97,7 @@ forwarded using the flow-based approach.
 
 As in [OpenSDN Basic vRouter Forwarder](https://github.com/mkraposhin/opensdn-forwarder-basic-tutorial)
 tutorial, the value of <vifr_idx></vifr_idx> field must be set using the
-indices of **veth1** and **veth2** interfaces from **host OS**.
+indices of **veth1** and **veth2** interfaces from the **host OS**.
 
 Finally, requests can be submitted to vRouter Forwarder module using
 **vrcli** command inside **opensdn-tools** container:
