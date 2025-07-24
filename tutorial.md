@@ -82,13 +82,13 @@ contained in the files
 [set_vif1_ip.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/set_vif1_ip.xml)
 and
 [set_vif2_ip.xml](https://github.com/mkraposhin/opensdn-forwarder-flows-tutorial/blob/main/xml_reqs/set_vif2_ip.xml).
-While these requests are svery similar to the similar
+While these requests are very similar to the corresponding
 requests from [OpenSDN Basic vRouter Forwarder](https://github.com/mkraposhin/opensdn-forwarder-basic-tutorial)
 tutorial, they have 2 important differences:
-1. there is a new field <vifr_vrf></vifr_vrf> field specifying the number
-of a VRF table associated with this interface for unicast packets;
-2. there is a new field <vifr_mcast_vrf></vifr_mcast_vrf> field specifying the number
-of a VRF table associated with this interface for multicast packets;
+1. there is a new <vifr_vrf></vifr_vrf> field specifying the index
+of a VRF table associated with the interface and used for unicast packets;
+2. there is a new field <vifr_mcast_vrf></vifr_mcast_vrf> field specifying the index
+of a VRF table associated with the interface and used for multicast packets;
 3. and there is a new field <vifr_flags></vifr_flags> set to value 0x1 which
 corresponds to the constant
 [VIF_FLAG_POLICY_ENABLED](https://github.com/OpenSDN-io/tf-vrouter/blob/master/utils/pylib/constants.py)
