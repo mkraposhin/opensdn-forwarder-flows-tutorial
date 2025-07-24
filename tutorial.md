@@ -26,8 +26,9 @@ A. Basic preparation steps
 --------------------------
 
 The basic configuration is created by applying steps **A**, **B** and **C** of
-[OpenSDN Basic vRouter Forwarder](https://github.com/mkraposhin/opensdn-forwarder-basic-tutorial/blob/main/tutorial.md) tutorial on clean Ubuntu system. After completing these steps
-the **host OS** must have:
+[OpenSDN Basic vRouter Forwarder](https://github.com/mkraposhin/opensdn-forwarder-basic-tutorial/blob/main/tutorial.md)
+tutorial on a clean Ubuntu system. After completing these steps the **host OS**
+must have:
 1. **opensdn-tools** running container;
 2. **cont1** and **cont2** running containers;
 3. vrouter kernel module loaded in the **host OS** memory;
